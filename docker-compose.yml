@@ -20,6 +20,7 @@ services:
     container_name: "django_cont"
     ports:
       - "8000:8000"
+    # Note: Aapne yahan gunicorn chalaya hai, toh agar views.py mein runserver jaisa issue ho toh gunicorn error logs check karna.
     command: sh -c "python manage.py migrate --noinput && gunicorn notesapp.wsgi --bind 0.0.0.0:8000"
     env_file:
       - ".env"
@@ -35,14 +36,14 @@ services:
     networks:
       - notes-app-nw
 
+
   db:
-    image: mysql:9.0
+    image: mysql
     container_name: "db_cont"
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=test_db
-      - MYSQL_ROOT_HOST=%
-    command: --innodb-buffer-pool-size=64M
+      - MYSQL_ROOT_HOST=%            # <--- YEH LINE AAPKO ADD KARNI HAI!
     volumes:
       - ./data/mysql/db:/var/lib/mysql
     healthcheck:
