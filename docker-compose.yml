@@ -18,7 +18,7 @@ services:
     container_name: "django_cont"
     ports:
       - "8000:8000"
-    # Note: Aapne yahan gunicorn chalaya hai, toh agar views.py mein runserver jaisa issue ho toh gunicorn error logs check karna.
+    # Note: Aapne yahan gunicorn chalaya hai, toh agar views.py mein runserver jaisa issue ho toh gunicorn error logs check karna hello.
     command: sh -c "python manage.py migrate --noinput && gunicorn notesapp.wsgi --bind 0.0.0.0:8000"
     env_file:
       - ".env"
